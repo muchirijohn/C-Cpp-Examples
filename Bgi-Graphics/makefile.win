@@ -1,0 +1,34 @@
+# Project: Bgi-Graphics
+# Makefile created by Red Panda C++ beta.0.12.6
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+RES      = Bgi-Graphics_private.res
+OBJ      = main.o $(RES)
+LINKOBJ  = main.o $(RES)
+CLEANOBJ  =  main.o $(RES)
+LIBS     =  -s -lgraphics -luuid -lmsimg32 -lgdi32 -limm32 -lole32 -loleaut32 -lwinmm -lgdiplus   -static
+INCS     =  
+CXXINCS  =  
+BIN      = Bgi-Graphics.exe
+CXXFLAGS = $(CXXINCS)  -O2 -pipe
+CFLAGS   = $(INCS)  -O2 -pipe
+RM       = del /q /f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(CLEANOBJ) $(BIN) > NUL 2>&1
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c D:/Github/C-Cpp-Examples/Bgi-Graphics/main.cpp -o main.o $(CXXFLAGS) 
+
+Bgi-Graphics_private.res: Bgi-Graphics_private.rc 
+	$(WINDRES) -i Bgi-Graphics_private.rc --input-format=rc -o Bgi-Graphics_private.res -O coff 
+

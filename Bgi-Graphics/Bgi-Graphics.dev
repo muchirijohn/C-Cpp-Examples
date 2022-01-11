@@ -1,18 +1,18 @@
 [Project]
 filename = Bgi-Graphics.dev
 name = Bgi-Graphics
-UnitCount = 1
+UnitCount = 4
 Type = 1
 Ver = 3
 ObjFiles = 
 Includes = 
 Libs = 
-PrivateResource = 
+PrivateResource = Bgi-Graphics_private.rc
 ResourceIncludes = 
 MakeIncludes = 
 Compiler = 
 CppCompiler = 
-Linker = 
+Linker = -lgraphics -luuid -lmsimg32 -lgdi32 -limm32 -lole32 -loleaut32 -lwinmm -lgdiplus_@@__@@_
 IsCpp = 1
 Icon = Bgi-Graphics.ico
 ExeOutput = 
@@ -70,3 +70,41 @@ ProductName =
 ProductVersion = 
 AutoIncBuildNr = 0
 SyncProduct = 1
+
+
+[Unit2]
+FileName = computation.h
+CompileCpp = 1
+Folder = 
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+DetectEncoding = 1
+FileEncoding = AUTO
+
+
+[Unit3]
+FileName = splitter.h
+CompileCpp = 1
+Folder = 
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+DetectEncoding = 1
+FileEncoding = AUTO
+
+
+[Unit4]
+FileName = data.txt
+Folder = 
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+DetectEncoding = 1
+FileEncoding = AUTO
