@@ -1,7 +1,7 @@
 /*
 * BGI Graphics example
 * @author MuchiriJohn 
- * License: MIT
+* License: MIT
 */
 
 #include <graphics.h>
