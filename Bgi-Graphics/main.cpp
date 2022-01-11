@@ -9,6 +9,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <functional>
+#include <unordered_map>
 #include <bits/stdc++.h>
 
 #include "computation.h"
@@ -16,7 +18,10 @@
 
 using namespace std;
 
-void drawSquares(int ln, int hg, string start, vector<string> fld, string ans){
+/*
+* draw boxes
+*/
+void drawBoxes(int ln, int hg, string start, vector<string> fld, string ans){
 	int width_blocks = ln;
 	string text;
 	int left, top, right, bottom;
@@ -66,6 +71,22 @@ void drawSquares(int ln, int hg, string start, vector<string> fld, string ans){
 	}
 }
 
+/*
+* get mapped operators
+*/
+int getMathType(std::string key) {
+	const static std::unordered_map<std::string,int> mp_{
+		{"AVERAGE",   AVERAGE},
+		{"MAXIMUM",   MAXIMUM},
+		{"MINIMUM",   MINIMUM},
+		{"VARIANCE",  VARIANCE}
+	};
+	return mp_.count(key) ? mp_.at(key) : NO_OP;
+}
+
+/*
+* main function
+*/
 int main(){
 	
 	//program variables.
@@ -112,39 +133,28 @@ int main(){
 	initgraph(1000, 800);
 	setcaption("Math Computation");
 	setcolor(CYAN);
-	outtextxy(10, 4, "Performing calculation...");
+	outtextxy(10, 4, "Processing...");
 	//compute
 	for(int x=0; x < lines.size(); x++){
 		double ans = 0.0;
 		//get the fields.
 		getOperatorValues(&lines[x][0]);
-		switch (op) {
-		case "AVERAGE":
-			ans = calculationOperator(Average, fields);
+		switch (getMathType(op)) {
+		case AVERAGE:
+			ans = calculationOperator(AVERAGE, fields);
 			break;
-		case "MAXIMUM":
-			ans = calculationOperator(Maximum, fields);
+		case MAXIMUM:
+			ans = calculationOperator(MAXIMUM, fields);
 			break;
-		case "MINIMUM":
-			ans = calculationOperator(Minimum, fields);
+		case MINIMUM:
+			ans = calculationOperator(MINIMUM, fields);
 			break;
-		case "VARIANCE":
-			ans = calculationOperator(variance, fields);
+		case VARIANCE:
+			ans = calculationOperator(VARIANCE, fields);
 			break;
 			default:
 				break;
 		}
-		/*if(op == "AVERAGE")//compute average
-			ans = calculationOperator(Average, fields);
-		
-		else if(op == "MAXIMUM")//find maximum
-			ans = calculationOperator(Maximum, fields);
-		
-		else if(op == "MINIMUM")//find minimum
-			ans = calculationOperator(Minimum, fields);
-		
-		else if(op == "VARIANCE")//find variance
-			ans = calculationOperator(variance, fields);*/
 		
 		//convert ans to string using stringstream
 		stringstream st (stringstream::in | stringstream::out);
@@ -161,7 +171,7 @@ int main(){
 		//output answer.
 		cout<< "Ans = " << computed_ans; //output the ans.
 		//draw grid with animation delay 500ms
-		drawSquares(fields.size() +2, x, op, fields, computed_ans);
+		drawBoxes(fields.size() +2, x, op, fields, computed_ans);
 		
 	}
 	//endDraw();

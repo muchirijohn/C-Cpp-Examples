@@ -9,7 +9,13 @@
 
 using namespace std;
 //enumerator to hold operators
-enum operators { Average, Maximum, Minimum, variance};
+enum operators {
+	AVERAGE,
+	MINIMUM,
+	MAXIMUM,
+	VARIANCE,
+	NO_OP
+};
 
 //find average method
 //return average
@@ -85,16 +91,16 @@ float stardardDeviation(vector<string> pars)
 float calculationOperator(operators op, vector<string> pars){
 	switch(op)
 	{
-	case Average:
+	case AVERAGE:
 		return computeAverage(pars); //return average
 		break;
-	case Maximum:
+	case MAXIMUM:
 		return findMaximum(pars); //return maximum
 		break;
-	case Minimum:
+	case MINIMUM:
 		return findMinimum(pars); //return minimum
 		break;
-	case variance:
+	case VARIANCE:
 		return computeVariance(pars); //return variance
 		break;
 		default:
