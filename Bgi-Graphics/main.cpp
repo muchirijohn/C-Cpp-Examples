@@ -152,9 +152,9 @@ int main(){
 		case VARIANCE:
 			ans = calculationOperator(VARIANCE, fields);
 			break;
-			default:
-				break;
-		}
+		default:
+			break;
+		};
 		
 		//convert ans to string using stringstream
 		stringstream st (stringstream::in | stringstream::out);
