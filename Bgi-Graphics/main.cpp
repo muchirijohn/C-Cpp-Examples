@@ -66,20 +66,21 @@ void drawBoxes(int ln, int hg, string start, vector<string> fld, string ans){
 			text = "ERROR: Too many numbers in this line. Wont fit to screen display, Maximum numbers per line is 7.";
 			moveto(120, top+40);
 			outtext(text.c_str());
-			//x = ln;
 		}
 	}
 }
 
 /*
-* get mapped operators
-*/
+ * get mapped operators
+ */
 int getMathType(std::string key) {
 	const static std::unordered_map<std::string,int> mp_{
-		{"AVERAGE",   AVERAGE},
-		{"MAXIMUM",   MAXIMUM},
-		{"MINIMUM",   MINIMUM},
-		{"VARIANCE",  VARIANCE}
+		{"MAXIMUM",		MAXIMUM},
+		{"MINIMUM",		MINIMUM},
+		{"MEAN",		MEAN},
+		{"MODE",		MODE},
+		{"MEDIAN",		MEDIAN},
+		{"VARIANCE",	VARIANCE}
 	};
 	return mp_.count(key) ? mp_.at(key) : NO_OP;
 }
@@ -140,14 +141,20 @@ int main(){
 		//get the fields.
 		getOperatorValues(&lines[x][0]);
 		switch (getMathType(op)) {
-		case AVERAGE:
-			ans = calculationOperator(AVERAGE, fields);
-			break;
 		case MAXIMUM:
 			ans = calculationOperator(MAXIMUM, fields);
 			break;
 		case MINIMUM:
 			ans = calculationOperator(MINIMUM, fields);
+			break;
+		case MEAN:
+			ans = calculationOperator(MEAN, fields);
+			break;
+		case MODE:
+			ans = calculationOperator(MODE, fields);
+			break;
+		case MEDIAN:
+			ans = calculationOperator(MEDIAN, fields);
 			break;
 		case VARIANCE:
 			ans = calculationOperator(VARIANCE, fields);
