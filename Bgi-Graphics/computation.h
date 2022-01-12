@@ -20,6 +20,16 @@ enum operators {
 	NO_OP
 };
 
+
+const static unordered_map<string,int> ump_{
+	{"MAXIMUM",		MAXIMUM},
+	{"MINIMUM",		MINIMUM},
+	{"MEAN",		MEAN},
+	{"MODE",		MODE},
+	{"MEDIAN",		MEDIAN},
+	{"VARIANCE",	VARIANCE}
+};
+
 //find average method
 //return average
 float computeMean(vector<string> pars)
@@ -29,7 +39,7 @@ float computeMean(vector<string> pars)
 	{
 		sum += atof(&pars[index][0]);
 	}
-	
+
 	return (sum / pars.size());
 }
 
@@ -46,7 +56,7 @@ float findMaximum(vector<string> pars)
 			lvalue = atof(&pars[index][0]);
 		}
 	}
-	
+
 	return lvalue;
 }
 
@@ -58,12 +68,12 @@ float findMinimum(vector<string> pars)
 	float lvalue = atof(&pars[index][0]);
 	for(index = 1; index < pars.size(); index++)
 	{
-		if(atof(&pars[index][0]) < lvalue) 
+		if(atof(&pars[index][0]) < lvalue)
 		{
 			lvalue = atof(&pars[index][0]);
 		}
 	}
-	
+
 	return lvalue;
 }
 
@@ -72,13 +82,13 @@ float findMinimum(vector<string> pars)
 float computeVariance(vector<string> pars)
 {
 	float var = 0;
-	float sum_difference = 0; //variable to hold summation of differences. 
+	float sum_difference = 0; //variable to hold summation of differences.
 	float average = computeMean(pars); // get the average.
 	for(int x =0; x<pars.size(); x++)
 	{
 		sum_difference += pow((( atof(&pars[x][0])) - average) , 2.0);
 	}
-	
+
 	var = (sum_difference / pars.size());
 	return var;
 }
@@ -103,36 +113,36 @@ float computeMedian(vector<string> pars){
 
 //compute mode
 float computeMode(vector<string> pars){
-	// Sort the array 
+	// Sort the array
 	 int size_ = pars.size();
 	 double arr[size_];
 	 //convert values to array
 	 for(int x=0; x< size_; x++) arr[x] = atof(&pars[x][0]);
 	 //sort
-	 sort(arr, arr + size_); 
-	
-	//finding max frequency  
-	int max_count = 1, count = 1; 
+	 sort(arr, arr + size_);
+
+	//finding max frequency
+	int max_count = 1, count = 1;
 	double res = arr[0];
-	for (int i = 1; i < size_; i++) { 
-		if (arr[i] == arr[i - 1]) 
-			count++; 
-		else { 
-			if (count > max_count) { 
-				max_count = count; 
-				res = arr[i - 1]; 
-			} 
-			count = 1; 
-		} 
-	} 
-	
-	// when the last element is most frequent 
-	if (count > max_count) 
-	{ 
-		max_count = count; 
-		res = arr[size_ - 1]; 
-	} 
-	
+	for (int i = 1; i < size_; i++) {
+		if (arr[i] == arr[i - 1])
+			count++;
+		else {
+			if (count > max_count) {
+				max_count = count;
+				res = arr[i - 1];
+			}
+			count = 1;
+		}
+	}
+
+	// when the last element is most frequent
+	if (count > max_count)
+	{
+		max_count = count;
+		res = arr[size_ - 1];
+	}
+
 	return res;
 }
 
@@ -166,3 +176,9 @@ float calculationOperator(operators op, vector<string> pars){
 	return 0;
 }
 
+/*
+ * get mapped operators
+ */
+inline uint8_t getMathType(string key) {
+	return ump_.count(key) ? ump_.at(key) : NO_OP;
+}

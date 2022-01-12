@@ -37,23 +37,23 @@ vector<string>& splitstring::split(char delim, int rep) {
 
 
 //get line data from the buffer
-vector<string> lines;
+//vector<string> lines;
 
-string getLines(char *buffer, int num)
+vector<string> getLines(char *buffer, int num)
 {
+	vector<string> lines;
 	splitstring s(&buffer[0]);
 	//get number of operations and data
 	lines = s.split('\n');
-	return lines[num];
+	return lines;
 }
 
 //get operator and values
 vector<string> fields;
-string op;
 
-void getOperatorValues(char *buffer)
+string getOperatorValues(char *buffer)
 {
-	//char *h = 
+	string op;
 	splitstring s(&buffer[0]);
 	//get number of operations and data
 	vector<string> op_val = s.split(':');
@@ -61,10 +61,11 @@ void getOperatorValues(char *buffer)
 	op = op_val[0];
 	cout << "\n" << op <<endl ;
 	//get fields
-	splitstring fs(&op_val[1][0]); 
+	splitstring fs(&op_val[1][0]);
 	fields = fs.split(',');
 	for (int k = 0; k < fields.size(); k++){
 		cout<< "val "<< k + 1 << " : " << fields[k] << endl;
 	}
+	return op;
 }
 

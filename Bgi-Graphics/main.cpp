@@ -1,6 +1,6 @@
 /*
 * BGI Graphics example
-* @author MuchiriJohn 
+* @author MuchiriJohn
 * License: MIT
 */
 
@@ -26,7 +26,7 @@ void drawBoxes(int ln, int hg, string start, vector<string> fld, string ans){
 	string text;
 	int left, top, right, bottom;
 	int tcenter;
-	uint8_t x_o = 10, y_o = 30, rd=10;
+	uint8_t x_o = 40, y_o = 90, rd=10;
 	//iterate while drawing blocks.
 	for(int x = 0; x < width_blocks ;  x++){
 		text = "";
@@ -71,40 +71,25 @@ void drawBoxes(int ln, int hg, string start, vector<string> fld, string ans){
 }
 
 /*
- * get mapped operators
- */
-int getMathType(std::string key) {
-	const static std::unordered_map<std::string,int> mp_{
-		{"MAXIMUM",		MAXIMUM},
-		{"MINIMUM",		MINIMUM},
-		{"MEAN",		MEAN},
-		{"MODE",		MODE},
-		{"MEDIAN",		MEDIAN},
-		{"VARIANCE",	VARIANCE}
-	};
-	return mp_.count(key) ? mp_.at(key) : NO_OP;
-}
-
-/*
 * main function
 */
 int main(){
-	
+
 	//program variables.
 	string name; //string to hold the name.
 	char ch;
 	string databuffer; //char buffer to hold file contents.
-	
+
 	cout << "\n===================================================================\n";
 	cout << "Computing Math using Graphics\n";
 	cout << "===================================================================\n\n";
-	cout << "Enter the name of the textfile (e.g f.txt) : ";
-	
+	cout << "Enter the name of the textfile (e.g file.txt) : ";
+
 	//get user specified file name.
 	cin >> name;
 	//create file i/o stream to read the file
 	ifstream myfile(name.c_str(), ios::in | ios::binary); //create file input stream.
-	
+
 	if(!myfile){ //check if file exists, if not exit with error message.
 		cout << "ERROR : Failed to open file!." ;
 		cout << "Check filename or if the file exists.";
@@ -115,7 +100,7 @@ int main(){
 		cout << "File stream created successfully.:\n\n";
 		databuffer = ""; //force clear buffer;
 	}
-	
+
 	//read the contents of the file, compact mode.
 	//reads byte by byte, important so as not to lose any
 	//characters.
@@ -124,68 +109,71 @@ int main(){
 		//cout << ch;
 	}
 	cout << databuffer; //output the contents.
-	
+
 	cout << "\n\n===================================================================\n\n";
 	cout << "Parsing File....\n\n";
-	///get the number of lines in the buffer
-	getLines(&databuffer[0], 1);
-	
+	///get the number of lines[operators] in the buffer
+	vector<string> lines = getLines(&databuffer[0], 1);
+
 	//start to draw BGI graphics
 	initgraph(1000, 800);
 	setcaption("Math Computation");
 	setcolor(CYAN);
-	outtextxy(10, 4, "Processing...");
+	string p_str = "Processing...";
+	outtextxy(40, 4, p_str.c_str());
 	//compute
 	for(int x=0; x < lines.size(); x++){
 		double ans = 0.0;
-		//get the fields.
-		getOperatorValues(&lines[x][0]);
+		//get the operator.
+		string op = getOperatorValues(&lines[x][0]);
+		p_str += op;
 		switch (getMathType(op)) {
-		case MAXIMUM:
+		case MAXIMUM: //maximum op
 			ans = calculationOperator(MAXIMUM, fields);
 			break;
-		case MINIMUM:
+		case MINIMUM: //minimum op
 			ans = calculationOperator(MINIMUM, fields);
 			break;
-		case MEAN:
+		case MEAN: //mean op
 			ans = calculationOperator(MEAN, fields);
 			break;
-		case MODE:
+		case MODE: //mode op
 			ans = calculationOperator(MODE, fields);
 			break;
-		case MEDIAN:
+		case MEDIAN: //median op
 			ans = calculationOperator(MEDIAN, fields);
 			break;
-		case VARIANCE:
+		case VARIANCE: //variance op
 			ans = calculationOperator(VARIANCE, fields);
 			break;
 		default:
 			break;
 		};
-		
+
 		//convert ans to string using stringstream
 		stringstream st (stringstream::in | stringstream::out);
 		st.setf(ios::fixed, ios::floatfield);
-		
+
 		//check if decimal
 		if((ans - (int)ans) > 0) st.precision(1);
 		else st.precision(0);
-		
+
 		st << ans;
-		
 		string computed_ans = st.str();
-		
+
 		//output answer.
 		cout<< "Ans = " << computed_ans; //output the ans.
 		//draw grid with animation delay 500ms
+		p_str += "...";
+		setcolor(CYAN);
+		outtextxy(40, 4, p_str.c_str());
 		drawBoxes(fields.size() +2, x, op, fields, computed_ans);
-		
 	}
-	//endDraw();
-	
-	cout << "\nDone.\n";
-	cout << "\n\n===================================================================";
-	
+	//complete
+
+	cout << "\n\nDone.\n";
+	cout << "===================================================================";
+
 	system("pause"); //pause system.
 	return 0; //end
 }
