@@ -82,6 +82,7 @@ int main(){
 
 	cout << "\n===================================================================\n";
 	cout << "Computing Math using Graphics\n";
+	cout << "(c) MuchiriJohn - Makerhacks\n";
 	cout << "===================================================================\n\n";
 	cout << "Enter the name of the textfile (e.g file.txt) : ";
 
