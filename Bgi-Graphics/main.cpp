@@ -21,7 +21,8 @@ using namespace std;
 /*
 * draw boxes
 */
-void drawBoxes(int ln, int hg, string start, vector<string> fld, string ans){
+void drawBoxes(vector<string> fld, int hg, string start, string ans){
+	int ln = fld.size()+2;
 	int width_blocks = ln;
 	string text;
 	int left, top, right, bottom;
@@ -120,7 +121,7 @@ int main(){
 	initgraph(1000, 800);
 	setcaption("Math Computation");
 	setcolor(CYAN);
-	string p_str = "Processing...";
+	string p_str = "Processing file[ " + name + "]...";
 	outtextxy(40, 4, p_str.c_str());
 	//compute
 	for(int x=0; x < lines.size(); x++){
@@ -168,7 +169,7 @@ int main(){
 		p_str += "...";
 		setcolor(CYAN);
 		outtextxy(40, 4, p_str.c_str());
-		drawBoxes(fields.size() +2, x, op, fields, computed_ans);
+		drawBoxes(fields, x, op, computed_ans);
 	}
 	//complete
 

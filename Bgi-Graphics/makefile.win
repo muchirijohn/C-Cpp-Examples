@@ -26,7 +26,7 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-main.o: main.cpp computation.h splitter.h
+main.o: main.cpp splitter.h computation.h
 	$(CPP) -c D:/Github/C-Cpp-Examples/Bgi-Graphics/main.cpp -o main.o $(CXXFLAGS) 
 
 Bgi-Graphics_private.res: Bgi-Graphics_private.rc 
